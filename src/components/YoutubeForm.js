@@ -12,7 +12,11 @@ const onSubmit = (values) => {
   console.log(values);
 };
 
-const validate = onSubmit;
+const validationSchema = Yup.object({
+  name: Yup.string().required("Required"),
+  email: Yup.string().email("email inválido").required("Required email"),
+  channel: Yup.string().required("Required channel"),
+});
 
 function YoutubeForm() {
   // useFormik é um hook que possui os objetos auxiliadores do Formik
@@ -21,7 +25,7 @@ function YoutubeForm() {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate,
+    validationSchema,
   });
 
   return (
@@ -37,6 +41,9 @@ function YoutubeForm() {
             onBlur={formik.handleBlur}
             value={formik.values.name}
           />
+          {formik.touched.name && formik.errors.name ? (
+            <div className="error">{formik.errors.name}</div>
+          ) : null}
         </div>
         <div className="form-control">
           <label htmlFor="email">Email</label>
@@ -48,7 +55,7 @@ function YoutubeForm() {
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
-          {formik.touched.email && formik.errors.chaneel ? (
+          {formik.touched.email && formik.errors.email ? (
             <div className="error">{formik.errors.email}</div>
           ) : null}
         </div>
@@ -63,6 +70,9 @@ function YoutubeForm() {
             onBlur={formik.handleBlur}
             value={formik.values.channel}
           />
+          {formik.touched.channel && formik.errors.channel ? (
+            <div className="error">{formik.errors.channel}</div>
+          ) : null}
         </div>
 
         <button type="submit">Submit</button>
