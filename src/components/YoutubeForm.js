@@ -13,6 +13,7 @@ const initialValues = {
     facebook: "",
     twitter: "",
   },
+  phoneNumber: ['', ''],
 };
 
 const onSubmit = (values) => {
@@ -98,6 +99,18 @@ function YoutubeForm() {
           <label htmlFor="twitter">Twitter</label>
           <Field as="textarea" id="twitter" name="social.twitter" />
           <ErrorMessage name="social.twitter" />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="phoneNumber">phoneNumber 1</label>
+          <Field as="textarea" id="phoneNumber1" name="phoneNumber[0]" />
+          <ErrorMessage name="phoneNumber[0]" />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="phoneNumber">phoneNumber 2</label>
+          <Field as="textarea" id="phoneNumber2" name="phoneNumber[1]" />
+          <ErrorMessage name="phoneNumber[1]" />
         </div>
 
         <button type="submit">Submit</button>
