@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -13,7 +13,8 @@ const initialValues = {
     facebook: "",
     twitter: "",
   },
-  phoneNumber: ['', ''],
+  phoneNumber: ["", ""],
+  phNumbers: [""],
 };
 
 const onSubmit = (values) => {
@@ -76,7 +77,7 @@ function YoutubeForm() {
 
         <div className="form-control">
           <label htmlFor="address">Address</label>
-          <Field name="address" type="text" >
+          <Field name="address" type="text">
             {(props) => {
               const { field, form, meta } = props;
               return (
@@ -111,6 +112,38 @@ function YoutubeForm() {
           <label htmlFor="phoneNumber">phoneNumber 2</label>
           <Field as="textarea" id="phoneNumber2" name="phoneNumber[1]" />
           <ErrorMessage name="phoneNumber[1]" />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="phoneNumber">List of Phone Numbers</label>
+          <FieldArray name="phNumbers">
+            {(fieldArrayProps) => {
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { phNumbers } = values;
+              console.log(
+                "🚀 ~ file: YoutubeForm.js:125 ~ YoutubeForm ~ fieldArrayProps:",
+                values
+              );
+              return (
+                <div>
+                  {phNumbers.map((phNumber, index) => (
+                    <div key={index}>
+                      <Field name={`phNumber[${index}]`} />
+                      {index > 0 && (
+                        <button type="button" onClick={() => remove(index)}>
+                          -
+                        </button>
+                      )}
+                      <button type="button" onClick={() => push(index)}>
+                        +
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
+            }}
+          </FieldArray>
         </div>
 
         <button type="submit">Submit</button>
