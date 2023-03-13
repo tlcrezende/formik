@@ -1,18 +1,19 @@
 import React from "react";
+import Input from "./Input";
 
 function FormikControl(props) {
-  const { control } = props;
+  const { control, ...rest } = props;
   switch (control) {
     case "input":
-    case "input":
-    case "input":
-    case "input":
-    case "input":
-    case "input":
+      return <Input {...rest} />;
+    case "inpu":
+    case "int":
+    case "iput":
+    case "iut":
+    case "inpt":
     default:
       return null;
   }
-  return <div>FormikControl</div>;
 }
 
 export default FormikControl;
