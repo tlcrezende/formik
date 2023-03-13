@@ -35,6 +35,14 @@ const validationSchema = Yup.object({
   channel: Yup.string().required("Required channel"),
 });
 
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = "Required";
+  }
+  return error;
+};
+
 function YoutubeForm() {
   // useFormik é um hook que possui os objetos auxiliadores do Formik
   // initialValues são os valores inicias do forms, crucial aqui que o nome do initialValues coincida com o campo "name" dos forms de destino.
@@ -78,8 +86,13 @@ function YoutubeForm() {
 
         <div className="form-control">
           <label htmlFor="comments">Comments</label>
-          <Field as="textarea" id="comments" name="comments" />
-          <ErrorMessage name="comments" />
+          <Field
+            as="textarea"
+            id="comments"
+            name="comments"
+            validate={validateComments}
+          />
+          <ErrorMessage name="comments" component={TextError}/>
         </div>
 
         <div className="form-control">
@@ -100,25 +113,21 @@ function YoutubeForm() {
         <div className="form-control">
           <label htmlFor="facebook">Facebook</label>
           <Field as="textarea" id="facebook" name="social.facebook" />
-          <ErrorMessage name="social.facebook" />
         </div>
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
           <Field as="textarea" id="twitter" name="social.twitter" />
-          <ErrorMessage name="social.twitter" />
         </div>
 
         <div className="form-control">
           <label htmlFor="phoneNumber">phoneNumber 1</label>
           <Field as="textarea" id="phoneNumber1" name="phoneNumber[0]" />
-          <ErrorMessage name="phoneNumber[0]" />
         </div>
 
         <div className="form-control">
           <label htmlFor="phoneNumber">phoneNumber 2</label>
           <Field as="textarea" id="phoneNumber2" name="phoneNumber[1]" />
-          <ErrorMessage name="phoneNumber[1]" />
         </div>
 
         <div className="form-control">
